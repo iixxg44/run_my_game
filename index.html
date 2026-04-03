@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Run My Game</title>
+</head>
+
+<body style="background:black; color:white; text-align:center;">
+
+<h1 id="title">🎮 Choose Language</h1>
+
+<button onclick="setLang('en')">English</button>
+<button onclick="setLang('ar')">العربية</button>
+
+<div id="app" style="display:none; margin-top:20px;">
+
+<h1 id="mainTitle"></h1>
+
+<select id="game">
+  <option value="fortnite">Fortnite</option>
+  <option value="gta">GTA V</option>
+</select>
+
+<br><br>
+
+<input id="ram">
+<br><br>
+
+<button onclick="check()" id="checkBtn"></button>
+
+<h2 id="result"></h2>
+
+</div>
+
+<script>
+let lang = "en";
+
+function setLang(selected) {
+  lang = selected;
+  document.getElementById("app").style.display = "block";
+
+  if(lang === "en") {
+    document.getElementById("mainTitle").innerText = "Can Your PC Run This Game?";
+    document.getElementById("checkBtn").innerText = "Check";
+    document.getElementById("ram").placeholder = "Enter RAM (GB)";
+  } else {
+    document.getElementById("mainTitle").innerText = "هل جهازك يشغّل اللعبة؟";
+    document.getElementById("checkBtn").innerText = "افحص";
+    document.getElementById("ram").placeholder = "ادخل الرام (GB)";
+  }
+}
+
+function check() {
+  let game = document.getElementById("game").value;
+  let ram = document.getElementById("ram").value;
+
+  if(game == "fortnite" && ram >= 8){
+    if(lang === "en"){
+      document.getElementById("result").innerText = "✔️ Your PC can run the game!";
+    } else {
+      document.getElementById("result").innerText = "✔️ جهازك يشغّل اللعبة!";
+    }
+  } else {
+    if(lang === "en"){
+      document.getElementById("result").innerText = "❌ Your PC may struggle.";
+    } else {
+      document.getElementById("result").innerText = "❌ جهازك قد يواجه مشاكل.";
+    }
+  }
+}
+</script>
+
+</body>
+</html>
