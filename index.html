@@ -661,4 +661,247 @@
           <div class="result-title" id="resultTitle">Your result will appear here.</div>
           <div class="result-text" id="resultText">Pick a game and enter your specs to begin.</div>
           <div class="tips" id="tips">
-            <div class="tip">Tip: Use your real
+            <div class="tip">Tip: Use your real PC details for a better estimate.</div>
+          </div>
+        </div>
+
+        <div class="note" id="footerNote">This is a quick estimate, not an exact benchmark.</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let lang = "en";
+    let selectedGame = "fortnite";
+    let cpuTier = "mid";
+    let gpuTier = "mid";
+
+    const translations = {
+      en: {
+        heroBadge: "⚡ Instant PC Game Checker",
+        heroTitle: "Check if your PC is ready for gaming.",
+        heroText: "Choose a game, enter your PC details, and get a clean result with recommended settings and simple upgrade tips.",
+        heroCardTitle: "Popular supported games",
+        heroCardText: "Quick checks for competitive and popular titles.",
+        checkerTitle: "Can Your PC Run This Game?",
+        checkerSub: "Enter your PC details below and get a quick answer.",
+        gameLabel: "Game",
+        cpuLabel: "CPU Tier",
+        gpuLabel: "GPU Tier",
+        ramLabel: "RAM (GB)",
+        checkBtn: "Check Compatibility",
+        footerNote: "This is a quick estimate, not an exact benchmark.",
+        waitingStatus: "Waiting for input",
+        waitingTitle: "Your result will appear here.",
+        waitingText: "Pick a game and enter your specs to begin.",
+        waitingTip: "Tip: Use your real PC details for a better estimate.",
+        statuses: {
+          success: "Excellent Match",
+          warning: "Playable",
+          danger: "Needs Upgrade"
+        },
+        titles: {
+          success: "Your PC should run this game well.",
+          warning: "Your PC may run it, but with lower settings.",
+          danger: "Your PC may struggle with this game."
+        },
+        settingsText: "Recommended settings:",
+        weakText: "Weakest part:",
+        tipsBase: [
+          "Close background apps before gaming.",
+          "Lower shadows and effects for better FPS.",
+          "Update graphics drivers for smoother performance."
+        ],
+        ramTip: "Consider increasing your RAM for a better experience.",
+        gpuTip: "A stronger graphics card would improve performance most.",
+        cpuTip: "A better processor may help reduce stutter.",
+        settings: {
+          low: "Low settings",
+          medium: "Medium settings",
+          high: "High settings"
+        }
+      },
+      ar: {
+        heroBadge: "⚡ فحص سريع لتشغيل الألعاب",
+        heroTitle: "هل جهازك جاهز للألعاب؟",
+        heroText: "اختر اللعبة، وأدخل تفاصيل جهازك، وخذ نتيجة واضحة مع إعدادات مقترحة ونصائح تحسين بسيطة.",
+        heroCardTitle: "ألعاب مدعومة مشهورة",
+        heroCardText: "فحص سريع لألعاب تنافسية ومشهورة.",
+        checkerTitle: "هل جهازك يشغّل هذه اللعبة؟",
+        checkerSub: "أدخل تفاصيل جهازك بالأسفل وخذ جوابًا سريعًا.",
+        gameLabel: "اللعبة",
+        cpuLabel: "مستوى المعالج",
+        gpuLabel: "مستوى كرت الشاشة",
+        ramLabel: "الرام (GB)",
+        checkBtn: "افحص التوافق",
+        footerNote: "هذا تقدير سريع وليس اختبار أداء دقيق.",
+        waitingStatus: "بانتظار الإدخال",
+        waitingTitle: "ستظهر النتيجة هنا.",
+        waitingText: "اختر لعبة وأدخل مواصفات جهازك للبدء.",
+        waitingTip: "نصيحة: استخدم تفاصيل جهازك الحقيقية للحصول على نتيجة أفضل.",
+        statuses: {
+          success: "ممتاز جدًا",
+          warning: "يعمل لكن بحذر",
+          danger: "بحاجة لتطوير"
+        },
+        titles: {
+          success: "جهازك غالبًا سيشغّل اللعبة بشكل جيد.",
+          warning: "قد تعمل اللعبة لكن على إعدادات أقل.",
+          danger: "جهازك قد يواجه صعوبة في تشغيل اللعبة."
+        },
+        settingsText: "الإعدادات المقترحة:",
+        weakText: "أضعف قطعة:",
+        tipsBase: [
+          "أغلق البرامج التي تعمل في الخلفية قبل اللعب.",
+          "خفف الظلال والتأثيرات لتحصل على FPS أفضل.",
+          "حدّث تعريف كرت الشاشة لتحسين السلاسة."
+        ],
+        ramTip: "زيادة الرام قد تحسن التجربة بشكل واضح.",
+        gpuTip: "كرت شاشة أقوى سيحسن الأداء أكثر شيء.",
+        cpuTip: "معالج أفضل قد يقلل التقطيع والتعليق.",
+        settings: {
+          low: "إعدادات منخفضة",
+          medium: "إعدادات متوسطة",
+          high: "إعدادات عالية"
+        }
+      }
+    };
+
+    const requirements = {
+      fortnite: { cpu: 1, gpu: 1, ram: 8 },
+      gta5: { cpu: 1, gpu: 1, ram: 8 },
+      valorant: { cpu: 1, gpu: 1, ram: 4 },
+      cs2: { cpu: 2, gpu: 2, ram: 8 },
+      minecraft: { cpu: 1, gpu: 1, ram: 4 }
+    };
+
+    function tierValue(value){
+      if(value === "low") return 1;
+      if(value === "mid") return 2;
+      return 3;
+    }
+
+    function toggleDropdown(){
+      document.getElementById("gameSelect").classList.toggle("open");
+    }
+
+    function selectGame(value, icon, title){
+      selectedGame = value;
+      document.getElementById("selectedIcon").innerText = icon;
+      document.getElementById("selectedText").innerText = title;
+      document.getElementById("gameSelect").classList.remove("open");
+
+      document.querySelectorAll(".select-option").forEach(option => {
+        option.classList.remove("active");
+        if(option.dataset.value === value){
+          option.classList.add("active");
+        }
+      });
+    }
+
+    document.addEventListener("click", function(e){
+      const select = document.getElementById("gameSelect");
+      if (!select.contains(e.target)) {
+        select.classList.remove("open");
+      }
+    });
+
+    function setLang(selected){
+      lang = selected;
+      document.documentElement.lang = selected;
+      document.documentElement.dir = "ltr";
+      document.body.dir = "ltr";
+
+      document.getElementById("langEn").classList.toggle("active", selected === "en");
+      document.getElementById("langAr").classList.toggle("active", selected === "ar");
+
+      const t = translations[selected];
+
+      document.getElementById("heroBadge").innerText = t.heroBadge;
+      document.getElementById("heroTitle").innerText = t.heroTitle;
+      document.getElementById("heroText").innerText = t.heroText;
+      document.getElementById("heroCardTitle").innerText = t.heroCardTitle;
+      document.getElementById("heroCardText").innerText = t.heroCardText;
+      document.getElementById("checkerTitle").innerText = t.checkerTitle;
+      document.getElementById("checkerSub").innerText = t.checkerSub;
+      document.getElementById("gameLabel").innerText = t.gameLabel;
+      document.getElementById("cpuLabel").innerText = t.cpuLabel;
+      document.getElementById("gpuLabel").innerText = t.gpuLabel;
+      document.getElementById("ramLabel").innerText = t.ramLabel;
+      document.getElementById("checkBtn").innerText = t.checkBtn;
+      document.getElementById("footerNote").innerText = t.footerNote;
+
+      resetWaiting();
+    }
+
+    function resetWaiting(){
+      const t = translations[lang];
+      const status = document.getElementById("resultStatus");
+      status.className = "result-status status-warning";
+      status.innerText = t.waitingStatus;
+      document.getElementById("resultTitle").innerText = t.waitingTitle;
+      document.getElementById("resultText").innerText = t.waitingText;
+      document.getElementById("tips").innerHTML = `<div class="tip">${t.waitingTip}</div>`;
+    }
+
+    function checkGame(){
+      const t = translations[lang];
+      const ram = Number(document.getElementById("ram").value || 0);
+      const req = requirements[selectedGame];
+      const cpu = tierValue(cpuTier);
+      const gpu = tierValue(gpuTier);
+
+      let score = 0;
+      if(cpu >= req.cpu) score++;
+      if(gpu >= req.gpu) score++;
+      if(ram >= req.ram) score++;
+
+      const weakList = [];
+      if(cpu < req.cpu) weakList.push(lang === "ar" ? "المعالج" : "CPU");
+      if(gpu < req.gpu) weakList.push(lang === "ar" ? "كرت الشاشة" : "GPU");
+      if(ram < req.ram) weakList.push(lang === "ar" ? "الرام" : "RAM");
+      const weakPart = weakList.length ? weakList.join(" + ") : (lang === "ar" ? "لا يوجد" : "None");
+
+      let resultClass = "";
+      let resultStatus = "";
+      let resultTitle = "";
+      let settings = "";
+      let tips = [...t.tipsBase];
+
+      if(score === 3){
+        resultClass = "status-success";
+        resultStatus = t.statuses.success;
+        resultTitle = t.titles.success;
+        settings = ram >= req.ram + 8 ? t.settings.high : t.settings.medium;
+      } else if(score === 2){
+        resultClass = "status-warning";
+        resultStatus = t.statuses.warning;
+        resultTitle = t.titles.warning;
+        settings = t.settings.low;
+      } else {
+        resultClass = "status-danger";
+        resultStatus = t.statuses.danger;
+        resultTitle = t.titles.danger;
+        settings = t.settings.low;
+      }
+
+      if(ram < req.ram) tips.unshift(t.ramTip);
+
+      const statusEl = document.getElementById("resultStatus");
+      statusEl.className = "result-status " + resultClass;
+      statusEl.innerText = resultStatus;
+
+      document.getElementById("resultTitle").innerText = resultTitle;
+      document.getElementById("resultText").innerText =
+        `${t.settingsText} ${settings} • ${t.weakText} ${weakPart}`;
+
+      document.getElementById("tips").innerHTML = tips
+        .slice(0, 3)
+        .map(tip => `<div class="tip">${tip}</div>`)
+        .join("");
+    }
+
+    setLang("en");
+  </script>
+</body>
+</html>
