@@ -34,7 +34,7 @@
     }
 
     body{
-      font-family:Arial, sans-serif;
+      font-family:Arial,sans-serif;
       min-height:100vh;
       color:var(--text);
       background:
@@ -154,7 +154,6 @@
     .pill{
       display:inline-flex;
       align-items:center;
-      gap:8px;
       width:fit-content;
       padding:10px 14px;
       border-radius:999px;
@@ -242,6 +241,7 @@
       border:1px solid rgba(255,255,255,.08);
       border-radius:22px;
       padding:18px;
+      min-width:0;
     }
 
     .card.full{
@@ -257,7 +257,7 @@
       text-align:left;
     }
 
-    select,input{
+    input{
       width:100%;
       padding:15px 16px;
       border-radius:16px;
@@ -269,14 +269,9 @@
       text-align:left;
     }
 
-    select:focus,
     input:focus{
       border-color:rgba(124,58,237,.85);
       box-shadow:0 0 0 4px rgba(124,58,237,.16);
-    }
-
-    select option{
-      color:black;
     }
 
     .muted{
@@ -372,6 +367,106 @@
       text-align:left;
     }
 
+    .custom-select{
+      position:relative;
+      width:100%;
+    }
+
+    .select-trigger{
+      width:100%;
+      min-height:54px;
+      padding:15px 16px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.07);
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .select-trigger:hover,
+    .custom-select.open .select-trigger{
+      border-color:rgba(124,58,237,.85);
+      box-shadow:0 0 0 4px rgba(124,58,237,.14);
+    }
+
+    .select-value{
+      font-size:15px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      min-width:0;
+    }
+
+    .select-arrow{
+      font-size:14px;
+      opacity:.8;
+      flex-shrink:0;
+      transition:.2s ease;
+    }
+
+    .custom-select.open .select-arrow{
+      transform:rotate(180deg);
+    }
+
+    .select-menu{
+      position:absolute;
+      top:calc(100% + 8px);
+      left:0;
+      right:0;
+      background:rgba(17,24,39,.98);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      box-shadow:0 20px 50px rgba(0,0,0,.45);
+      padding:8px;
+      display:none;
+      z-index:100;
+      max-height:260px;
+      overflow-y:auto;
+      backdrop-filter:blur(18px);
+    }
+
+    .custom-select.open .select-menu{
+      display:block;
+    }
+
+    .select-menu::-webkit-scrollbar{
+      width:10px;
+    }
+
+    .select-menu::-webkit-scrollbar-track{
+      background:transparent;
+    }
+
+    .select-menu::-webkit-scrollbar-thumb{
+      background:rgba(255,255,255,.14);
+      border-radius:999px;
+    }
+
+    .select-option{
+      padding:12px 14px;
+      border-radius:12px;
+      cursor:pointer;
+      transition:.18s ease;
+      font-size:14px;
+      line-height:1.45;
+      text-align:left;
+      word-break:break-word;
+    }
+
+    .select-option:hover{
+      background:rgba(124,58,237,.14);
+    }
+
+    .select-option.active{
+      background:linear-gradient(135deg,rgba(124,58,237,.24),rgba(79,70,229,.18));
+      border:1px solid rgba(124,58,237,.22);
+    }
+
     @media (max-width: 900px){
       .hero{
         grid-template-columns:1fr;
@@ -408,6 +503,10 @@
       .checker-title{
         font-size:28px;
       }
+
+      .select-menu{
+        max-height:220px;
+      }
     }
   </style>
 </head>
@@ -428,7 +527,7 @@
 
     <div class="hero">
       <div class="hero-left">
-        <div class="pill" id="heroBadge">⚡ Instant PC Game Checker</div>
+        <div class="pill" id="heroBadge">Instant PC Game Checker</div>
         <div class="hero-title" id="heroTitle">Check if your PC can run this game.</div>
         <div class="hero-text" id="heroText">
           Choose the game, CPU, GPU, and RAM. The checker compares your parts against the game requirements and gives you a cleaner result.
@@ -440,8 +539,8 @@
         <p id="heroRightText">A cleaner result with better part-based checking.</p>
         <div class="mini-list">
           <div class="mini-item" id="mini1">Clean game list without extra icons.</div>
-          <div class="mini-item" id="mini2">CPU list sorted from strongest to weakest.</div>
-          <div class="mini-item" id="mini3">GPU list sorted from strongest to weakest.</div>
+          <div class="mini-item" id="mini2">CPU list with smooth internal scroll.</div>
+          <div class="mini-item" id="mini3">GPU list with smooth internal scroll.</div>
         </div>
       </div>
     </div>
@@ -452,19 +551,19 @@
 
       <div class="grid">
         <div class="card full">
-          <label id="gameLabel" for="game">Game</label>
-          <select id="game"></select>
+          <label id="gameLabel">Game</label>
+          <div class="custom-select" id="gameSelect"></div>
         </div>
 
         <div class="card">
-          <label id="cpuLabel" for="cpu">CPU</label>
-          <select id="cpu"></select>
+          <label id="cpuLabel">CPU</label>
+          <div class="custom-select" id="cpuSelect"></div>
           <div class="muted" id="cpuHint">Sorted from strongest to weakest.</div>
         </div>
 
         <div class="card">
-          <label id="gpuLabel" for="gpu">GPU</label>
-          <select id="gpu"></select>
+          <label id="gpuLabel">GPU</label>
+          <div class="custom-select" id="gpuSelect"></div>
           <div class="muted" id="gpuHint">Sorted from strongest to weakest.</div>
         </div>
 
@@ -491,6 +590,9 @@
 
   <script>
     let lang = "en";
+    let selectedGame = "fortnite";
+    let selectedCpu = "Intel Core i5-10600K";
+    let selectedGpu = "RTX 3060";
 
     const cpus = [
       "Intel Core i9-14900KS",
@@ -620,14 +722,14 @@
 
     const translations = {
       en: {
-        heroBadge: "⚡ Instant PC Game Checker",
+        heroBadge: "Instant PC Game Checker",
         heroTitle: "Check if your PC can run this game.",
         heroText: "Choose the game, CPU, GPU, and RAM. The checker compares your parts against the game requirements and gives you a cleaner result.",
         heroRightTitle: "What this checker gives you",
         heroRightText: "A cleaner result with better part-based checking.",
         mini1: "Clean game list without extra icons.",
-        mini2: "CPU list sorted from strongest to weakest.",
-        mini3: "GPU list sorted from strongest to weakest.",
+        mini2: "CPU list with smooth internal scroll.",
+        mini3: "GPU list with smooth internal scroll.",
         checkerTitle: "Can Your PC Run This Game?",
         checkerSub: "Choose the game and your actual PC parts to get a better estimate.",
         gameLabel: "Game",
@@ -666,14 +768,14 @@
         cpuTip: "A stronger processor may reduce stutter."
       },
       ar: {
-        heroBadge: "⚡ فحص سريع لتشغيل الألعاب",
+        heroBadge: "فحص سريع لتشغيل الألعاب",
         heroTitle: "افحص إذا جهازك يشغّل هذه اللعبة.",
         heroText: "اختر اللعبة، والمعالج، وكرت الشاشة، والرام. الموقع يقارن القطع بمتطلبات اللعبة ويعطيك نتيجة أوضح.",
         heroRightTitle: "ماذا يعطيك هذا الفحص",
         heroRightText: "نتيجة أوضح وفحص أفضل بناءً على القطع.",
-        mini1: "قائمة ألعاب نظيفة بدون شعارات إضافية.",
-        mini2: "قائمة معالجات مرتبة من الأقوى إلى الأضعف.",
-        mini3: "قائمة كروت شاشة مرتبة من الأقوى إلى الأضعف.",
+        mini1: "قائمة ألعاب نظيفة بدون أيقونات.",
+        mini2: "قائمة معالجات مع سكرول داخلي ناعم.",
+        mini3: "قائمة كروت شاشة مع سكرول داخلي ناعم.",
         checkerTitle: "هل جهازك يشغّل هذه اللعبة؟",
         checkerSub: "اختر اللعبة وقطع جهازك الحقيقية لتحصل على نتيجة أفضل.",
         gameLabel: "اللعبة",
@@ -713,32 +815,106 @@
       }
     };
 
-    function fillSelect(id, list, defaultValue = "") {
-      const select = document.getElementById(id);
-      select.innerHTML = "";
-      list.forEach(item => {
-        const option = document.createElement("option");
-        option.value = item;
-        option.textContent = item;
-        if (item === defaultValue) option.selected = true;
-        select.appendChild(option);
-      });
+    function closeAllDropdowns() {
+      document.querySelectorAll(".custom-select").forEach(el => el.classList.remove("open"));
     }
 
-    function fillGames() {
-      const gameSelect = document.getElementById("game");
-      gameSelect.innerHTML = "";
-      Object.keys(games).forEach(key => {
-        const option = document.createElement("option");
-        option.value = key;
-        option.textContent = games[key][lang];
-        gameSelect.appendChild(option);
+    function createCustomSelect(containerId, items, selectedValue, onChange) {
+      const container = document.getElementById(containerId);
+      container.innerHTML = "";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "custom-select";
+
+      const trigger = document.createElement("div");
+      trigger.className = "select-trigger";
+
+      const value = document.createElement("div");
+      value.className = "select-value";
+      value.textContent = selectedValue;
+
+      const arrow = document.createElement("div");
+      arrow.className = "select-arrow";
+      arrow.innerHTML = "⌄";
+
+      trigger.appendChild(value);
+      trigger.appendChild(arrow);
+
+      const menu = document.createElement("div");
+      menu.className = "select-menu";
+
+      items.forEach(item => {
+        const option = document.createElement("div");
+        option.className = "select-option" + (item === selectedValue ? " active" : "");
+        option.textContent = item;
+
+        option.addEventListener("click", () => {
+          value.textContent = item;
+          wrapper.classList.remove("open");
+          menu.querySelectorAll(".select-option").forEach(o => o.classList.remove("active"));
+          option.classList.add("active");
+          onChange(item);
+        });
+
+        menu.appendChild(option);
       });
+
+      trigger.addEventListener("click", (e) => {
+        e.stopPropagation();
+        const isOpen = wrapper.classList.contains("open");
+        closeAllDropdowns();
+        if (!isOpen) wrapper.classList.add("open");
+      });
+
+      wrapper.appendChild(trigger);
+      wrapper.appendChild(menu);
+      container.appendChild(wrapper);
     }
+
+    document.addEventListener("click", () => {
+      closeAllDropdowns();
+    });
 
     function getRank(list, item) {
       const index = list.indexOf(item);
       return index === -1 ? 9999 : index;
+    }
+
+    function gameListForLang() {
+      return Object.keys(games).map(key => ({
+        key,
+        label: games[key][lang]
+      }));
+    }
+
+    function refreshSelects() {
+      createCustomSelect(
+        "gameSelect",
+        gameListForLang().map(g => g.label),
+        games[selectedGame][lang],
+        (label) => {
+          const found = Object.keys(games).find(key => games[key][lang] === label);
+          selectedGame = found || "fortnite";
+        }
+      );
+
+      createCustomSelect(
+        "cpuSelect",
+        cpus,
+        selectedCpu,
+        (value) => {
+          selectedCpu = value;
+        }
+      );
+
+      createCustomSelect(
+        "gpuSelect",
+        gpus,
+        selectedGpu,
+        (value) => {
+          selectedGpu = value;
+        }
+      );
     }
 
     function setLang(selected) {
@@ -768,7 +944,7 @@
       document.getElementById("gpuHint").innerText = t.gpuHint;
       document.getElementById("checkBtn").innerText = t.checkBtn;
 
-      fillGames();
+      refreshSelects();
       resetWaiting();
     }
 
@@ -784,15 +960,11 @@
 
     function checkGame() {
       const t = translations[lang];
-      const gameKey = document.getElementById("game").value;
-      const cpu = document.getElementById("cpu").value;
-      const gpu = document.getElementById("gpu").value;
       const ram = Number(document.getElementById("ram").value || 0);
+      const req = games[selectedGame];
 
-      const req = games[gameKey];
-
-      const cpuOk = getRank(cpus, cpu) <= getRank(cpus, req.cpuMin);
-      const gpuOk = getRank(gpus, gpu) <= getRank(gpus, req.gpuMin);
+      const cpuOk = getRank(cpus, selectedCpu) <= getRank(cpus, req.cpuMin);
+      const gpuOk = getRank(gpus, selectedGpu) <= getRank(gpus, req.gpuMin);
       const ramOk = ram >= req.ramMin;
 
       let score = 0;
@@ -847,8 +1019,6 @@
         .join("");
     }
 
-    fillSelect("cpu", cpus, "Intel Core i5-10600K");
-    fillSelect("gpu", gpus, "RTX 3060");
     setLang("en");
   </script>
 </body>
