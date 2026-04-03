@@ -10,15 +10,17 @@
       --bg2:#111827;
       --bg3:#1e293b;
       --card:rgba(255,255,255,0.08);
-      --border:rgba(255,255,255,0.14);
+      --border:rgba(255,255,255,0.12);
       --text:#f8fafc;
       --muted:#94a3b8;
       --primary:#7c3aed;
-      --primary2:#22c55e;
+      --primary-2:#4f46e5;
+      --green:#57c96b;
+      --green-2:#46b85b;
       --danger:#ef4444;
       --warning:#f59e0b;
       --success:#22c55e;
-      --shadow:0 20px 60px rgba(0,0,0,0.45);
+      --shadow:0 20px 60px rgba(0,0,0,.45);
       --radius:26px;
     }
 
@@ -35,28 +37,27 @@
     body{
       font-family:Arial, sans-serif;
       min-height:100vh;
-      color:var(--text);
       background:
-        radial-gradient(circle at top left, rgba(124,58,237,0.25), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(34,197,94,0.16), transparent 25%),
-        linear-gradient(135deg, var(--bg1), var(--bg2), var(--bg3));
+        radial-gradient(circle at top left, rgba(124,58,237,.24), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(34,197,94,.14), transparent 25%),
+        linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
+      color:var(--text);
       overflow-x:hidden;
       direction:ltr;
-      text-align:left;
     }
 
     .bg-blur{
       position:fixed;
       inset:0;
       pointer-events:none;
-      overflow:hidden;
       z-index:0;
+      overflow:hidden;
     }
 
     .orb{
       position:absolute;
       border-radius:50%;
-      filter:blur(50px);
+      filter:blur(52px);
       opacity:.35;
       animation:float 8s ease-in-out infinite;
     }
@@ -65,291 +66,189 @@
       width:260px;
       height:260px;
       background:#7c3aed;
-      top:8%;
+      top:6%;
       left:4%;
     }
 
     .orb.two{
-      width:220px;
-      height:220px;
+      width:240px;
+      height:240px;
       background:#22c55e;
       right:8%;
-      bottom:12%;
-      animation-delay:1.3s;
+      bottom:10%;
+      animation-delay:1.2s;
     }
 
     @keyframes float{
-      0%,100%{transform:translateY(0px) translateX(0px);}
-      50%{transform:translateY(-18px) translateX(10px);}
+      0%,100%{transform:translateY(0) translateX(0)}
+      50%{transform:translateY(-18px) translateX(10px)}
     }
 
-    section{
+    .page{
       position:relative;
       z-index:1;
-    }
-
-    .landing{
       min-height:100vh;
       display:flex;
       align-items:center;
       justify-content:center;
-      padding:24px;
+      padding:28px;
     }
 
-    .landing-card{
+    .shell{
       width:100%;
-      max-width:1100px;
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:24px;
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.12);
+      max-width:1050px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
       backdrop-filter:blur(18px);
       border-radius:32px;
-      padding:28px;
       box-shadow:var(--shadow);
-      direction:ltr;
+      padding:28px;
     }
 
-    .left-panel{
-      padding:18px;
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:26px;
+    }
+
+    .brand{
+      font-size:28px;
+      font-weight:900;
+      letter-spacing:-.7px;
+    }
+
+    .lang-switch{
+      display:flex;
+      gap:8px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:14px;
+      padding:6px;
+      margin-left:auto;
+    }
+
+    .lang-switch button{
+      border:none;
+      background:transparent;
+      color:white;
+      padding:10px 16px;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:14px;
+      font-weight:800;
+      transition:.2s ease;
+    }
+
+    .lang-switch button.active{
+      background:linear-gradient(135deg,var(--primary),var(--primary-2));
+    }
+
+    .hero{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:24px;
+      margin-bottom:24px;
+    }
+
+    .hero-left{
       display:flex;
       flex-direction:column;
       justify-content:center;
-      text-align:left;
     }
 
     .pill{
       display:inline-flex;
-      align-items:center;
-      gap:8px;
       width:fit-content;
       padding:10px 14px;
       border-radius:999px;
-      background:rgba(255,255,255,0.08);
-      border:1px solid rgba(255,255,255,0.12);
-      color:#dbeafe;
+      background:rgba(255,255,255,.07);
+      border:1px solid rgba(255,255,255,.1);
+      color:#ddd6fe;
       font-size:13px;
-      margin-bottom:18px;
-      text-align:left;
-    }
-
-    .landing h1{
-      font-size:58px;
-      line-height:1.02;
-      letter-spacing:-1.5px;
       margin-bottom:16px;
-      max-width:620px;
+    }
+
+    .hero-title{
+      font-size:56px;
+      line-height:1.02;
+      letter-spacing:-1.4px;
+      margin-bottom:14px;
       text-align:left;
     }
 
-    .landing p{
+    .hero-text{
       color:var(--muted);
       font-size:17px;
       line-height:1.8;
-      max-width:620px;
-      margin-bottom:28px;
       text-align:left;
+      max-width:650px;
     }
 
-    .landing-buttons{
-      display:flex;
-      flex-wrap:wrap;
-      gap:12px;
-      margin-bottom:24px;
-      justify-content:flex-start;
-    }
-
-    button{
-      border:none;
-      cursor:pointer;
-      transition:.22s ease;
-      font-weight:800;
-    }
-
-    .primary-btn{
-      padding:15px 22px;
-      border-radius:16px;
-      background:linear-gradient(135deg,var(--primary),#4f46e5);
-      color:white;
-      font-size:15px;
-      box-shadow:0 16px 30px rgba(124,58,237,0.32);
-    }
-
-    .primary-btn:hover{
-      transform:translateY(-2px);
-      filter:brightness(1.05);
-    }
-
-    .ghost-btn{
-      padding:15px 22px;
-      border-radius:16px;
-      background:rgba(255,255,255,0.06);
-      color:white;
-      border:1px solid rgba(255,255,255,0.1);
-      font-size:15px;
-    }
-
-    .ghost-btn:hover{
-      transform:translateY(-2px);
-      background:rgba(255,255,255,0.09);
-    }
-
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-      margin-top:6px;
-    }
-
-    .stat{
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:18px;
-      padding:16px;
-      text-align:left;
-    }
-
-    .stat .big{
-      font-size:22px;
-      font-weight:900;
-      margin-bottom:6px;
-    }
-
-    .stat .small{
-      font-size:13px;
-      color:var(--muted);
-      line-height:1.5;
-    }
-
-    .right-panel{
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.08);
+    .hero-card{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
       border-radius:28px;
-      padding:24px;
+      padding:22px;
       display:flex;
       flex-direction:column;
       justify-content:center;
-      text-align:left;
+      min-height:220px;
     }
 
-    .right-panel h3{
+    .hero-card h3{
       font-size:24px;
       margin-bottom:10px;
       text-align:left;
     }
 
-    .right-panel p{
-      margin-bottom:20px;
-      font-size:15px;
+    .hero-card p{
+      color:var(--muted);
       line-height:1.7;
       text-align:left;
+      margin-bottom:18px;
     }
 
-    .language-grid{
-      display:grid;
-      gap:12px;
-    }
-
-    .lang-btn{
-      width:100%;
-      text-align:left;
-      padding:16px 18px;
-      border-radius:18px;
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.09);
-      color:white;
-      font-size:15px;
-    }
-
-    .lang-btn:hover,
-    .lang-btn.active{
-      background:linear-gradient(135deg,rgba(124,58,237,0.26),rgba(79,70,229,0.22));
-      border-color:rgba(124,58,237,0.5);
-      transform:translateY(-1px);
-    }
-
-    .checker-section{
-      min-height:100vh;
-      padding:40px 24px 70px;
+    .game-badges{
       display:flex;
-      justify-content:center;
-      align-items:center;
+      flex-wrap:wrap;
+      gap:10px;
     }
 
-    .checker-shell{
-      width:100%;
-      max-width:980px;
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.12);
-      backdrop-filter:blur(18px);
-      border-radius:30px;
-      padding:28px;
-      box-shadow:var(--shadow);
-      direction:ltr;
+    .game-badge{
+      padding:10px 12px;
+      border-radius:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.08);
+      font-size:13px;
     }
 
-    .checker-top{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:16px;
-      margin-bottom:22px;
-      direction:ltr;
-    }
-
-    .brand{
-      font-size:24px;
-      font-weight:900;
-      letter-spacing:-0.5px;
-      text-align:left;
-    }
-
-    .tiny-lang{
-      display:flex;
-      gap:8px;
-      background:rgba(255,255,255,0.06);
-      border:1px solid rgba(255,255,255,0.08);
-      border-radius:14px;
-      padding:6px;
-      margin-left:auto;
-      direction:ltr;
-    }
-
-    .tiny-lang button{
-      padding:10px 14px;
-      border-radius:10px;
-      background:transparent;
-      color:white;
-      font-size:14px;
-    }
-
-    .tiny-lang button.active{
-      background:linear-gradient(135deg,var(--primary),#4f46e5);
+    .checker{
+      background:rgba(255,255,255,.04);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:28px;
+      padding:22px;
     }
 
     .checker-title{
-      font-size:38px;
+      font-size:34px;
       margin-bottom:8px;
       letter-spacing:-1px;
       text-align:left;
-      direction:ltr;
     }
 
     .checker-sub{
       color:var(--muted);
-      margin-bottom:24px;
+      margin-bottom:22px;
       line-height:1.7;
-      max-width:680px;
       text-align:left;
-      direction:ltr;
     }
 
     .grid{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:14px;
-      direction:ltr;
     }
 
     .field{
@@ -367,55 +266,169 @@
       font-weight:700;
       color:#e5e7eb;
       text-align:left;
-      direction:ltr;
     }
 
-    select,input{
+    input{
       width:100%;
       padding:15px 16px;
       border-radius:16px;
-      border:1px solid rgba(255,255,255,0.08);
-      background:rgba(255,255,255,0.07);
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.07);
       color:white;
       font-size:15px;
       outline:none;
       transition:.2s ease;
-      direction:ltr;
       text-align:left;
     }
 
-    select:focus,input:focus{
-      border-color:rgba(124,58,237,0.9);
-      box-shadow:0 0 0 4px rgba(124,58,237,0.18);
+    input:focus{
+      border-color:rgba(124,58,237,.9);
+      box-shadow:0 0 0 4px rgba(124,58,237,.18);
     }
 
-    select option{
-      color:black;
+    .custom-select{
+      position:relative;
+      user-select:none;
+    }
+
+    .select-trigger{
+      width:100%;
+      min-height:54px;
+      padding:15px 16px;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.08);
+      background:rgba(255,255,255,.07);
+      color:white;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .select-trigger:hover,
+    .custom-select.open .select-trigger{
+      border-color:rgba(124,58,237,.8);
+      box-shadow:0 0 0 4px rgba(124,58,237,.14);
+    }
+
+    .select-left{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+    }
+
+    .game-icon{
+      width:34px;
+      height:34px;
+      border-radius:10px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:rgba(255,255,255,.08);
+      font-size:16px;
+      flex-shrink:0;
+    }
+
+    .selected-text{
+      font-size:15px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .arrow{
+      font-size:14px;
+      opacity:.8;
+      transition:.2s ease;
+    }
+
+    .custom-select.open .arrow{
+      transform:rotate(180deg);
+    }
+
+    .select-menu{
+      position:absolute;
+      top:calc(100% + 10px);
+      left:0;
+      right:0;
+      background:rgba(19,25,42,.98);
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      box-shadow:0 24px 50px rgba(0,0,0,.45);
+      padding:8px;
+      display:none;
+      z-index:50;
+      backdrop-filter:blur(16px);
+    }
+
+    .custom-select.open .select-menu{
+      display:block;
+    }
+
+    .select-option{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:13px 14px;
+      border-radius:14px;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .select-option:hover{
+      background:rgba(124,58,237,.16);
+    }
+
+    .select-option.active{
+      background:linear-gradient(135deg,rgba(124,58,237,.28),rgba(79,70,229,.18));
+      border:1px solid rgba(124,58,237,.2);
+    }
+
+    .option-meta{
+      display:flex;
+      flex-direction:column;
+      gap:3px;
+    }
+
+    .option-title{
+      font-size:15px;
+      font-weight:700;
+    }
+
+    .option-sub{
+      font-size:12px;
+      color:var(--muted);
     }
 
     .check-btn{
       width:100%;
       padding:16px 18px;
+      border:none;
       border-radius:18px;
-      background:linear-gradient(135deg,var(--primary2),#16a34a);
+      background:linear-gradient(135deg,var(--green),var(--green-2));
       color:white;
       font-size:16px;
-      box-shadow:0 16px 30px rgba(34,197,94,0.24);
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 16px 30px rgba(34,197,94,.24);
+      transition:.2s ease;
     }
 
     .check-btn:hover{
       transform:translateY(-2px);
+      filter:brightness(1.03);
     }
 
     .result-box{
       margin-top:18px;
       padding:18px;
       border-radius:22px;
-      background:rgba(255,255,255,0.05);
-      border:1px solid rgba(255,255,255,0.08);
-      min-height:160px;
-      text-align:left;
-      direction:ltr;
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      min-height:170px;
     }
 
     .result-status{
@@ -427,26 +440,24 @@
       font-size:14px;
       font-weight:800;
       margin-bottom:14px;
-      direction:ltr;
-      text-align:left;
     }
 
     .status-success{
-      background:rgba(34,197,94,0.12);
+      background:rgba(34,197,94,.12);
       color:#86efac;
-      border:1px solid rgba(34,197,94,0.24);
+      border:1px solid rgba(34,197,94,.24);
     }
 
     .status-warning{
-      background:rgba(245,158,11,0.12);
+      background:rgba(245,158,11,.12);
       color:#fcd34d;
-      border:1px solid rgba(245,158,11,0.24);
+      border:1px solid rgba(245,158,11,.24);
     }
 
     .status-danger{
-      background:rgba(239,68,68,0.12);
+      background:rgba(239,68,68,.12);
       color:#fca5a5;
-      border:1px solid rgba(239,68,68,0.24);
+      border:1px solid rgba(239,68,68,.24);
     }
 
     .result-title{
@@ -454,7 +465,6 @@
       font-weight:900;
       margin-bottom:8px;
       text-align:left;
-      direction:ltr;
     }
 
     .result-text{
@@ -462,7 +472,6 @@
       line-height:1.7;
       margin-bottom:14px;
       text-align:left;
-      direction:ltr;
     }
 
     .tips{
@@ -471,56 +480,49 @@
     }
 
     .tip{
-      background:rgba(255,255,255,0.05);
+      background:rgba(255,255,255,.05);
       padding:12px 14px;
       border-radius:14px;
-      border:1px solid rgba(255,255,255,0.06);
+      border:1px solid rgba(255,255,255,.06);
       color:#e5e7eb;
       font-size:14px;
       line-height:1.6;
       text-align:left;
-      direction:ltr;
     }
 
     .note{
       margin-top:14px;
-      text-align:left;
       color:var(--muted);
       font-size:12px;
-      direction:ltr;
+      text-align:left;
     }
 
-    @media (max-width: 930px){
-      .landing-card{
+    @media (max-width: 920px){
+      .hero{
         grid-template-columns:1fr;
       }
 
-      .landing h1{
+      .hero-title{
         font-size:42px;
-      }
-
-      .stats{
-        grid-template-columns:1fr;
       }
     }
 
     @media (max-width: 560px){
-      .landing,
-      .checker-section{
-        padding:16px;
+      .page{
+        padding:14px;
       }
 
-      .landing-card,
-      .checker-shell{
+      .shell,
+      .checker{
         padding:18px;
       }
 
-      .checker-top{
+      .topbar{
         flex-direction:column;
         align-items:flex-start;
       }
 
-      .tiny-lang{
+      .lang-switch{
         margin-left:0;
         align-self:flex-end;
       }
@@ -530,7 +532,7 @@
       }
 
       .checker-title{
-        font-size:31px;
+        font-size:28px;
       }
     }
   </style>
@@ -541,361 +543,122 @@
     <div class="orb two"></div>
   </div>
 
-  <section class="landing" id="landing">
-    <div class="landing-card">
-      <div class="left-panel">
-        <div class="pill" id="heroBadge">⚡ Instant PC Game Checker</div>
-        <h1 id="heroTitle">Check if your PC is ready for gaming.</h1>
-        <p id="heroText">
-          Choose your language, start the checker, and get a clean result with suggested settings and simple upgrade tips.
-        </p>
-
-        <div class="landing-buttons">
-          <button class="primary-btn" id="startBtn" onclick="goToChecker()">Start Checking</button>
-          <button class="ghost-btn" id="learnBtn" onclick="goToChecker()">See How It Works</button>
-        </div>
-
-        <div class="stats">
-          <div class="stat">
-            <div class="big" id="stat1Big">5 Games</div>
-            <div class="small" id="stat1Text">Quick compatibility checks for popular titles.</div>
-          </div>
-          <div class="stat">
-            <div class="big" id="stat2Big">2 Languages</div>
-            <div class="small" id="stat2Text">English and Arabic support from the start.</div>
-          </div>
-          <div class="stat">
-            <div class="big" id="stat3Big">Fast Result</div>
-            <div class="small" id="stat3Text">Simple result, clear weak point, better advice.</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="right-panel">
-        <h3 id="langTitle">Choose your language</h3>
-        <p id="langText">Pick the language you want before moving to the checker.</p>
-
-        <div class="language-grid">
-          <button class="lang-btn active" id="landingEn" onclick="setLang('en')">🇺🇸 English</button>
-          <button class="lang-btn" id="landingAr" onclick="setLang('ar')">🇸🇦 العربية</button>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="checker-section" id="checker">
-    <div class="checker-shell">
-      <div class="checker-top">
+  <div class="page">
+    <div class="shell">
+      <div class="topbar">
         <div class="brand">Run My Game</div>
-        <div class="tiny-lang">
-          <button id="smallEn" class="active" onclick="setLang('en')">English</button>
-          <button id="smallAr" onclick="setLang('ar')">العربية</button>
+        <div class="lang-switch">
+          <button id="langEn" class="active" onclick="setLang('en')">English</button>
+          <button id="langAr" onclick="setLang('ar')">العربية</button>
         </div>
       </div>
 
-      <div class="checker-title" id="checkerTitle">Can Your PC Run This Game?</div>
-      <div class="checker-sub" id="checkerSub">Enter your PC details below and get a quick answer.</div>
-
-      <div class="grid">
-        <div class="field full">
-          <label for="game" id="gameLabel">Game</label>
-          <select id="game">
-            <option value="fortnite">Fortnite</option>
-            <option value="gta5">GTA V</option>
-            <option value="valorant">Valorant</option>
-            <option value="cs2">Counter-Strike 2</option>
-            <option value="minecraft">Minecraft</option>
-          </select>
+      <div class="hero">
+        <div class="hero-left">
+          <div class="pill" id="heroBadge">⚡ Instant PC Game Checker</div>
+          <div class="hero-title" id="heroTitle">Check if your PC is ready for gaming.</div>
+          <div class="hero-text" id="heroText">
+            Choose a game, enter your PC details, and get a clean result with recommended settings and simple upgrade tips.
+          </div>
         </div>
 
-        <div class="field">
-          <label for="cpu" id="cpuLabel">CPU Tier</label>
-          <select id="cpu">
-            <option value="low">Low / Old</option>
-            <option value="mid" selected>Mid Range</option>
-            <option value="high">High End</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="gpu" id="gpuLabel">GPU Tier</label>
-          <select id="gpu">
-            <option value="low">Low / Old</option>
-            <option value="mid" selected>Mid Range</option>
-            <option value="high">High End</option>
-          </select>
-        </div>
-
-        <div class="field full">
-          <label for="ram" id="ramLabel">RAM (GB)</label>
-          <input id="ram" type="number" min="2" max="128" value="8" placeholder="Enter RAM amount" />
-        </div>
-
-        <div class="field full">
-          <button class="check-btn" id="checkBtn" onclick="checkGame()">Check Compatibility</button>
+        <div class="hero-card">
+          <h3 id="heroCardTitle">Popular supported games</h3>
+          <p id="heroCardText">Quick checks for competitive and popular titles.</p>
+          <div class="game-badges">
+            <div class="game-badge">Fortnite</div>
+            <div class="game-badge">GTA V</div>
+            <div class="game-badge">Valorant</div>
+            <div class="game-badge">CS2</div>
+            <div class="game-badge">Minecraft</div>
+          </div>
         </div>
       </div>
 
-      <div class="result-box">
-        <div class="result-status status-warning" id="resultStatus">Waiting for input</div>
-        <div class="result-title" id="resultTitle">Your result will appear here.</div>
-        <div class="result-text" id="resultText">Pick a game and enter your specs to begin.</div>
-        <div class="tips" id="tips">
-          <div class="tip">Tip: Use your real PC details for a better estimate.</div>
+      <div class="checker">
+        <div class="checker-title" id="checkerTitle">Can Your PC Run This Game?</div>
+        <div class="checker-sub" id="checkerSub">Enter your PC details below and get a quick answer.</div>
+
+        <div class="grid">
+          <div class="field full">
+            <label id="gameLabel">Game</label>
+
+            <div class="custom-select" id="gameSelect">
+              <div class="select-trigger" onclick="toggleDropdown()">
+                <div class="select-left">
+                  <div class="game-icon" id="selectedIcon">🎮</div>
+                  <div class="selected-text" id="selectedText">Fortnite</div>
+                </div>
+                <div class="arrow">⌄</div>
+              </div>
+
+              <div class="select-menu" id="selectMenu">
+                <div class="select-option active" onclick="selectGame('fortnite','🎮','Fortnite','Battle Royale')" data-value="fortnite">
+                  <div class="game-icon">🎮</div>
+                  <div class="option-meta">
+                    <div class="option-title">Fortnite</div>
+                    <div class="option-sub">Battle Royale</div>
+                  </div>
+                </div>
+
+                <div class="select-option" onclick="selectGame('gta5','🚗','GTA V','Open World')" data-value="gta5">
+                  <div class="game-icon">🚗</div>
+                  <div class="option-meta">
+                    <div class="option-title">GTA V</div>
+                    <div class="option-sub">Open World</div>
+                  </div>
+                </div>
+
+                <div class="select-option" onclick="selectGame('valorant','🎯','Valorant','Tactical Shooter')" data-value="valorant">
+                  <div class="game-icon">🎯</div>
+                  <div class="option-meta">
+                    <div class="option-title">Valorant</div>
+                    <div class="option-sub">Tactical Shooter</div>
+                  </div>
+                </div>
+
+                <div class="select-option" onclick="selectGame('cs2','💥','Counter-Strike 2','Competitive FPS')" data-value="cs2">
+                  <div class="game-icon">💥</div>
+                  <div class="option-meta">
+                    <div class="option-title">Counter-Strike 2</div>
+                    <div class="option-sub">Competitive FPS</div>
+                  </div>
+                </div>
+
+                <div class="select-option" onclick="selectGame('minecraft','🧱','Minecraft','Sandbox')" data-value="minecraft">
+                  <div class="game-icon">🧱</div>
+                  <div class="option-meta">
+                    <div class="option-title">Minecraft</div>
+                    <div class="option-sub">Sandbox</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="cpu" id="cpuLabel">CPU Tier</label>
+            <input id="cpu" value="Mid Range" readonly />
+          </div>
+
+          <div class="field">
+            <label for="gpu" id="gpuLabel">GPU Tier</label>
+            <input id="gpu" value="Mid Range" readonly />
+          </div>
+
+          <div class="field full">
+            <label for="ram" id="ramLabel">RAM (GB)</label>
+            <input id="ram" type="number" min="2" max="128" value="8" placeholder="Enter RAM amount" />
+          </div>
+
+          <div class="field full">
+            <button class="check-btn" id="checkBtn" onclick="checkGame()">Check Compatibility</button>
+          </div>
         </div>
-      </div>
 
-      <div class="note" id="footerNote">This is a quick estimate, not an exact benchmark.</div>
-    </div>
-  </section>
-
-  <script>
-    let lang = "en";
-
-    const translations = {
-      en: {
-        heroBadge: "⚡ Instant PC Game Checker",
-        heroTitle: "Check if your PC is ready for gaming.",
-        heroText: "Choose your language, start the checker, and get a clean result with suggested settings and simple upgrade tips.",
-        startBtn: "Start Checking",
-        learnBtn: "See How It Works",
-        stat1Big: "5 Games",
-        stat1Text: "Quick compatibility checks for popular titles.",
-        stat2Big: "2 Languages",
-        stat2Text: "English and Arabic support from the start.",
-        stat3Big: "Fast Result",
-        stat3Text: "Simple result, clear weak point, better advice.",
-        langTitle: "Choose your language",
-        langText: "Pick the language you want before moving to the checker.",
-        checkerTitle: "Can Your PC Run This Game?",
-        checkerSub: "Enter your PC details below and get a quick answer.",
-        gameLabel: "Game",
-        cpuLabel: "CPU Tier",
-        gpuLabel: "GPU Tier",
-        ramLabel: "RAM (GB)",
-        checkBtn: "Check Compatibility",
-        footerNote: "This is a quick estimate, not an exact benchmark.",
-        waitingStatus: "Waiting for input",
-        waitingTitle: "Your result will appear here.",
-        waitingText: "Pick a game and enter your specs to begin.",
-        waitingTip: "Tip: Use your real PC details for a better estimate.",
-        cpuOptions: ["Low / Old", "Mid Range", "High End"],
-        gpuOptions: ["Low / Old", "Mid Range", "High End"],
-        statuses: {
-          success: "Excellent Match",
-          warning: "Playable",
-          danger: "Needs Upgrade"
-        },
-        titles: {
-          success: "Your PC should run this game well.",
-          warning: "Your PC may run it, but with lower settings.",
-          danger: "Your PC may struggle with this game."
-        },
-        settingsText: "Recommended settings:",
-        weakText: "Weakest part:",
-        tipsBase: [
-          "Close background apps before gaming.",
-          "Lower shadows and effects for better FPS.",
-          "Update graphics drivers for smoother performance."
-        ],
-        ramTip: "Consider increasing your RAM for a better experience.",
-        gpuTip: "A stronger graphics card would improve performance most.",
-        cpuTip: "A better processor may help reduce stutter.",
-        settings: {
-          low: "Low settings",
-          medium: "Medium settings",
-          high: "High settings"
-        }
-      },
-      ar: {
-        heroBadge: "⚡ فحص سريع لتشغيل الألعاب",
-        heroTitle: "افحص إذا جهازك جاهز للألعاب.",
-        heroText: "اختر لغتك، ثم ابدأ الفحص لتحصل على نتيجة واضحة مع إعدادات مقترحة ونصائح تحسين بسيطة.",
-        startBtn: "ابدأ الفحص",
-        learnBtn: "اعرف كيف يعمل",
-        stat1Big: "5 ألعاب",
-        stat1Text: "فحص سريع لألعاب مشهورة.",
-        stat2Big: "لغتان",
-        stat2Text: "دعم عربي وإنجليزي من البداية.",
-        stat3Big: "نتيجة سريعة",
-        stat3Text: "نتيجة واضحة، وأضعف قطعة، ونصائح أفضل.",
-        langTitle: "اختر اللغة",
-        langText: "اختر اللغة التي تريدها قبل الانتقال إلى الفحص.",
-        checkerTitle: "هل جهازك يشغّل هذه اللعبة؟",
-        checkerSub: "أدخل تفاصيل جهازك بالأسفل وخذ جوابًا سريعًا.",
-        gameLabel: "اللعبة",
-        cpuLabel: "مستوى المعالج",
-        gpuLabel: "مستوى كرت الشاشة",
-        ramLabel: "الرام (GB)",
-        checkBtn: "افحص التوافق",
-        footerNote: "هذا تقدير سريع وليس اختبار أداء دقيق.",
-        waitingStatus: "بانتظار الإدخال",
-        waitingTitle: "ستظهر النتيجة هنا.",
-        waitingText: "اختر لعبة وأدخل مواصفات جهازك للبدء.",
-        waitingTip: "نصيحة: أدخل مواصفاتك الحقيقية لتحصل على نتيجة أفضل.",
-        cpuOptions: ["ضعيف / قديم", "متوسط", "قوي"],
-        gpuOptions: ["ضعيف / قديم", "متوسط", "قوي"],
-        statuses: {
-          success: "ممتاز جدًا",
-          warning: "يعمل لكن بحذر",
-          danger: "بحاجة لتطوير"
-        },
-        titles: {
-          success: "جهازك غالبًا سيشغّل اللعبة بشكل جيد.",
-          warning: "قد تعمل اللعبة لكن على إعدادات أقل.",
-          danger: "جهازك قد يواجه صعوبة في تشغيل اللعبة."
-        },
-        settingsText: "الإعدادات المقترحة:",
-        weakText: "أضعف قطعة:",
-        tipsBase: [
-          "أغلق البرامج التي تعمل في الخلفية قبل اللعب.",
-          "خفف الظلال والتأثيرات لتحصل على FPS أفضل.",
-          "حدّث تعريف كرت الشاشة لتحسين السلاسة."
-        ],
-        ramTip: "زيادة الرام قد تحسن التجربة بشكل واضح.",
-        gpuTip: "كرت شاشة أقوى سيحسن الأداء أكثر شيء.",
-        cpuTip: "معالج أفضل قد يقلل التقطيع والتعليق.",
-        settings: {
-          low: "إعدادات منخفضة",
-          medium: "إعدادات متوسطة",
-          high: "إعدادات عالية"
-        }
-      }
-    };
-
-    const requirements = {
-      fortnite: { cpu: 1, gpu: 1, ram: 8 },
-      gta5: { cpu: 1, gpu: 1, ram: 8 },
-      valorant: { cpu: 1, gpu: 1, ram: 4 },
-      cs2: { cpu: 2, gpu: 2, ram: 8 },
-      minecraft: { cpu: 1, gpu: 1, ram: 4 }
-    };
-
-    function tierValue(value){
-      if(value === "low") return 1;
-      if(value === "mid") return 2;
-      return 3;
-    }
-
-    function goToChecker(){
-      document.getElementById("checker").scrollIntoView({ behavior: "smooth" });
-    }
-
-    function setLang(selected){
-      lang = selected;
-      document.documentElement.lang = selected;
-      document.documentElement.dir = "ltr";
-      document.body.dir = "ltr";
-
-      document.getElementById("landingEn").classList.toggle("active", selected === "en");
-      document.getElementById("landingAr").classList.toggle("active", selected === "ar");
-      document.getElementById("smallEn").classList.toggle("active", selected === "en");
-      document.getElementById("smallAr").classList.toggle("active", selected === "ar");
-
-      const t = translations[selected];
-
-      document.getElementById("heroBadge").innerText = t.heroBadge;
-      document.getElementById("heroTitle").innerText = t.heroTitle;
-      document.getElementById("heroText").innerText = t.heroText;
-      document.getElementById("startBtn").innerText = t.startBtn;
-      document.getElementById("learnBtn").innerText = t.learnBtn;
-      document.getElementById("stat1Big").innerText = t.stat1Big;
-      document.getElementById("stat1Text").innerText = t.stat1Text;
-      document.getElementById("stat2Big").innerText = t.stat2Big;
-      document.getElementById("stat2Text").innerText = t.stat2Text;
-      document.getElementById("stat3Big").innerText = t.stat3Big;
-      document.getElementById("stat3Text").innerText = t.stat3Text;
-      document.getElementById("langTitle").innerText = t.langTitle;
-      document.getElementById("langText").innerText = t.langText;
-
-      document.getElementById("checkerTitle").innerText = t.checkerTitle;
-      document.getElementById("checkerSub").innerText = t.checkerSub;
-      document.getElementById("gameLabel").innerText = t.gameLabel;
-      document.getElementById("cpuLabel").innerText = t.cpuLabel;
-      document.getElementById("gpuLabel").innerText = t.gpuLabel;
-      document.getElementById("ramLabel").innerText = t.ramLabel;
-      document.getElementById("checkBtn").innerText = t.checkBtn;
-      document.getElementById("footerNote").innerText = t.footerNote;
-
-      const cpuSelect = document.getElementById("cpu");
-      const gpuSelect = document.getElementById("gpu");
-      [...cpuSelect.options].forEach((opt, i) => opt.text = t.cpuOptions[i]);
-      [...gpuSelect.options].forEach((opt, i) => opt.text = t.gpuOptions[i]);
-
-      resetWaiting();
-    }
-
-    function resetWaiting(){
-      const t = translations[lang];
-      const status = document.getElementById("resultStatus");
-      status.className = "result-status status-warning";
-      status.innerText = t.waitingStatus;
-      document.getElementById("resultTitle").innerText = t.waitingTitle;
-      document.getElementById("resultText").innerText = t.waitingText;
-      document.getElementById("tips").innerHTML = `<div class="tip">${t.waitingTip}</div>`;
-    }
-
-    function checkGame(){
-      const t = translations[lang];
-      const game = document.getElementById("game").value;
-      const cpu = tierValue(document.getElementById("cpu").value);
-      const gpu = tierValue(document.getElementById("gpu").value);
-      const ram = Number(document.getElementById("ram").value || 0);
-      const req = requirements[game];
-
-      let score = 0;
-      if(cpu >= req.cpu) score++;
-      if(gpu >= req.gpu) score++;
-      if(ram >= req.ram) score++;
-
-      const weakList = [];
-      if(cpu < req.cpu) weakList.push(lang === "ar" ? "المعالج" : "CPU");
-      if(gpu < req.gpu) weakList.push(lang === "ar" ? "كرت الشاشة" : "GPU");
-      if(ram < req.ram) weakList.push(lang === "ar" ? "الرام" : "RAM");
-      const weakPart = weakList.length ? weakList.join(" + ") : (lang === "ar" ? "لا يوجد" : "None");
-
-      let resultClass = "";
-      let resultStatus = "";
-      let resultTitle = "";
-      let settings = "";
-      let tips = [...t.tipsBase];
-
-      if(score === 3){
-        resultClass = "status-success";
-        resultStatus = t.statuses.success;
-        resultTitle = t.titles.success;
-        settings = cpu === 3 && gpu === 3 && ram >= req.ram + 8 ? t.settings.high : t.settings.medium;
-      } else if(score === 2){
-        resultClass = "status-warning";
-        resultStatus = t.statuses.warning;
-        resultTitle = t.titles.warning;
-        settings = t.settings.low;
-      } else {
-        resultClass = "status-danger";
-        resultStatus = t.statuses.danger;
-        resultTitle = t.titles.danger;
-        settings = t.settings.low;
-      }
-
-      if(ram < req.ram) tips.unshift(t.ramTip);
-      if(gpu < req.gpu) tips.unshift(t.gpuTip);
-      if(cpu < req.cpu) tips.unshift(t.cpuTip);
-
-      const statusEl = document.getElementById("resultStatus");
-      statusEl.className = "result-status " + resultClass;
-      statusEl.innerText = resultStatus;
-
-      document.getElementById("resultTitle").innerText = resultTitle;
-      document.getElementById("resultText").innerText =
-        `${t.settingsText} ${settings} • ${t.weakText} ${weakPart}`;
-
-      document.getElementById("tips").innerHTML = tips
-        .slice(0, 3)
-        .map(tip => `<div class="tip">${tip}</div>`)
-        .join("");
-    }
-
-    setLang("en");
-  </script>
-</body>
-</html>
+        <div class="result-box">
+          <div class="result-status status-warning" id="resultStatus">Waiting for input</div>
+          <div class="result-title" id="resultTitle">Your result will appear here.</div>
+          <div class="result-text" id="resultText">Pick a game and enter your specs to begin.</div>
+          <div class="tips" id="tips">
+            <div class="tip">Tip: Use your real
