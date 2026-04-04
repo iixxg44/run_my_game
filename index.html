@@ -567,10 +567,10 @@
           <div class="muted" id="gpuHint">Sorted from strongest to weakest.</div>
         </div>
 
-        <div class="card full">
-          <label id="ramLabel" for="ram">RAM (GB)</label>
-          <input id="ram" type="number" min="2" max="128" value="16" />
-        </div>
+       <div class="card full">
+  <label id="ramLabel">RAM (GB)</label>
+  <div class="custom-select" id="ramSelect"></div>
+</div>
 
         <div class="card full">
           <button class="check-btn" id="checkBtn" onclick="checkGame()">Check Compatibility</button>
@@ -590,9 +590,12 @@
 
   <script>
     let lang = "en";
-    let selectedGame = "fortnite";
-    let selectedCpu = "Intel Core i5-10600K";
-    let selectedGpu = "RTX 3060";
+let selectedGame = "fortnite";
+let selectedCpu = "Intel Core i5-10600K";
+let selectedGpu = "RTX 3060";
+let selectedRam = "16";
+
+const ramOptions = ["4", "8", "16", "32", "64", "128"];
 
     const cpus = [
       "Intel Core i9-14900KS",
@@ -888,34 +891,43 @@
     }
 
     function refreshSelects() {
-      createCustomSelect(
-        "gameSelect",
-        gameListForLang().map(g => g.label),
-        games[selectedGame][lang],
-        (label) => {
-          const found = Object.keys(games).find(key => games[key][lang] === label);
-          selectedGame = found || "fortnite";
-        }
-      );
-
-      createCustomSelect(
-        "cpuSelect",
-        cpus,
-        selectedCpu,
-        (value) => {
-          selectedCpu = value;
-        }
-      );
-
-      createCustomSelect(
-        "gpuSelect",
-        gpus,
-        selectedGpu,
-        (value) => {
-          selectedGpu = value;
-        }
-      );
+  createCustomSelect(
+    "gameSelect",
+    gameListForLang().map(g => g.label),
+    games[selectedGame][lang],
+    (label) => {
+      const found = Object.keys(games).find(key => games[key][lang] === label);
+      selectedGame = found || "fortnite";
     }
+  );
+
+  createCustomSelect(
+    "cpuSelect",
+    cpus,
+    selectedCpu,
+    (value) => {
+      selectedCpu = value;
+    }
+  );
+
+  createCustomSelect(
+    "gpuSelect",
+    gpus,
+    selectedGpu,
+    (value) => {
+      selectedGpu = value;
+    }
+  );
+
+  createCustomSelect(
+    "ramSelect",
+    ramOptions,
+    selectedRam,
+    (value) => {
+      selectedRam = value;
+    }
+  );
+}
 
     function setLang(selected) {
       lang = selected;
@@ -960,7 +972,7 @@
 
     function checkGame() {
       const t = translations[lang];
-      const ram = Number(document.getElementById("ram").value || 0);
+     const ram = Number(selectedRam);
       const req = games[selectedGame];
 
       const cpuOk = getRank(cpus, selectedCpu) <= getRank(cpus, req.cpuMin);
@@ -1022,4 +1034,4 @@
     setLang("en");
   </script>
 </body>
-</html>  من هون اعمل الي قلتلك اياه الرام صح ماشي شكلها ممتاز بس بدي اوبشنز زي الثانيات 4 8 16 32 64 128  بس  بس تبعتلي الكود كامل مع التعديل صحيح من هون
+</html>  
