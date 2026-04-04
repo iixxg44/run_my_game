@@ -6,21 +6,25 @@
   <title>Run My Game</title>
   <style>
     :root{
-      --bg1:#0b1020;
-      --bg2:#111827;
-      --bg3:#1e293b;
-      --text:#f8fafc;
-      --muted:#94a3b8;
-      --primary:#7c3aed;
-      --primary2:#4f46e5;
-      --green:#57c96b;
-      --green2:#46b85b;
-      --danger:#ef4444;
-      --warning:#f59e0b;
-      --success:#22c55e;
-      --shadow:0 20px 60px rgba(0,0,0,.45);
-      --card:rgba(255,255,255,.06);
-      --border:rgba(255,255,255,.10);
+      --bg:#1e1f22;
+      --bg2:#2b2d31;
+      --bg3:#313338;
+      --panel:#232428;
+      --panel2:#2f3136;
+      --card:#2b2d31;
+      --card-hover:#32353b;
+      --text:#f2f3f5;
+      --muted:#b5bac1;
+      --line:#3f4147;
+      --primary:#5865f2;
+      --primary-hover:#4752c4;
+      --success:#23a559;
+      --warning:#f0b232;
+      --danger:#da373c;
+      --shadow:0 18px 40px rgba(0,0,0,.28);
+      --radius-xl:24px;
+      --radius-lg:18px;
+      --radius-md:14px;
     }
 
     *{
@@ -34,162 +38,139 @@
     }
 
     body{
-      font-family:Arial,sans-serif;
-      min-height:100vh;
-      color:var(--text);
+      font-family: Inter, Arial, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(124,58,237,.22), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(34,197,94,.12), transparent 25%),
-        linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3));
-      padding:28px;
-      direction:ltr;
-      overflow-x:hidden;
+        radial-gradient(circle at top left, rgba(88,101,242,.15), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(35,165,89,.10), transparent 20%),
+        var(--bg);
+      color:var(--text);
+      min-height:100vh;
+      padding:26px;
     }
 
-    .bg-blur{
-      position:fixed;
-      inset:0;
-      pointer-events:none;
-      z-index:0;
-      overflow:hidden;
-    }
-
-    .orb{
-      position:absolute;
-      border-radius:50%;
-      filter:blur(55px);
-      opacity:.35;
-      animation:float 8s ease-in-out infinite;
-    }
-
-    .orb.one{
-      width:260px;
-      height:260px;
-      background:#7c3aed;
-      top:6%;
-      left:4%;
-    }
-
-    .orb.two{
-      width:240px;
-      height:240px;
-      background:#22c55e;
-      right:8%;
-      bottom:8%;
-      animation-delay:1.2s;
-    }
-
-    @keyframes float{
-      0%,100%{transform:translateY(0) translateX(0)}
-      50%{transform:translateY(-18px) translateX(10px)}
-    }
-
-    .wrap{
-      position:relative;
-      z-index:1;
-      max-width:1150px;
-      margin:auto;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      border-radius:32px;
-      padding:28px;
-      box-shadow:var(--shadow);
-      backdrop-filter:blur(18px);
+    .shell{
+      max-width:1180px;
+      margin:0 auto;
     }
 
     .topbar{
       display:flex;
-      justify-content:space-between;
       align-items:center;
+      justify-content:space-between;
       gap:16px;
-      margin-bottom:24px;
+      margin-bottom:18px;
     }
 
     .brand{
-      font-size:30px;
+      display:flex;
+      align-items:center;
+      gap:12px;
       font-weight:900;
-      letter-spacing:-0.8px;
+      font-size:28px;
+      letter-spacing:-0.5px;
+    }
+
+    .brand-badge{
+      width:42px;
+      height:42px;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--primary),#7983f5);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      box-shadow:var(--shadow);
+      font-size:18px;
+      font-weight:900;
     }
 
     .lang-switch{
       display:flex;
       gap:8px;
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.08);
+      background:var(--bg2);
+      border:1px solid var(--line);
       border-radius:14px;
       padding:6px;
-      margin-left:auto;
     }
 
     .lang-switch button{
       border:none;
       background:transparent;
-      color:#fff;
-      padding:10px 16px;
+      color:var(--text);
+      padding:10px 14px;
       border-radius:10px;
       font-weight:800;
       cursor:pointer;
-      transition:.2s ease;
+      transition:.18s ease;
     }
 
     .lang-switch button.active{
-      background:linear-gradient(135deg,var(--primary),var(--primary2));
+      background:var(--primary);
+    }
+
+    .layout{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:18px;
+      margin-bottom:18px;
+    }
+
+    .panel{
+      background:rgba(35,36,40,.92);
+      border:1px solid var(--line);
+      border-radius:var(--radius-xl);
+      box-shadow:var(--shadow);
     }
 
     .hero{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:18px;
-      margin-bottom:22px;
-    }
-
-    .hero-left,
-    .hero-right{
-      background:var(--card);
-      border:1px solid var(--border);
-      border-radius:26px;
-      padding:24px;
+      padding:28px;
+      min-height:280px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
 
     .pill{
       display:inline-flex;
-      align-items:center;
       width:fit-content;
       padding:10px 14px;
       border-radius:999px;
-      background:rgba(255,255,255,.07);
-      border:1px solid rgba(255,255,255,.10);
-      color:#ddd6fe;
+      background:#1a1b1e;
+      border:1px solid var(--line);
+      color:#c7cdfc;
       font-size:13px;
+      font-weight:700;
       margin-bottom:16px;
     }
 
     .hero-title{
-      font-size:52px;
+      font-size:54px;
       line-height:1.02;
-      letter-spacing:-1.3px;
+      letter-spacing:-1.4px;
       margin-bottom:14px;
-      text-align:left;
     }
 
     .hero-text{
-      color:var(--muted);
       font-size:17px;
-      line-height:1.8;
-      text-align:left;
+      color:var(--muted);
+      line-height:1.75;
       max-width:700px;
     }
 
-    .hero-right h3{
-      font-size:24px;
-      margin-bottom:10px;
-      text-align:left;
+    .side{
+      padding:22px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
     }
 
-    .hero-right p{
+    .side h3{
+      font-size:24px;
+      margin-bottom:10px;
+    }
+
+    .side p{
       color:var(--muted);
       line-height:1.7;
-      text-align:left;
       margin-bottom:16px;
     }
 
@@ -199,34 +180,35 @@
     }
 
     .mini-item{
-      padding:12px 14px;
+      background:var(--bg2);
+      border:1px solid var(--line);
       border-radius:14px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.06);
+      padding:13px 14px;
+      color:var(--text);
       font-size:14px;
-      color:#e5e7eb;
-      text-align:left;
     }
 
     .checker{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:28px;
       padding:22px;
+    }
+
+    .checker-head{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:18px;
     }
 
     .checker-title{
       font-size:34px;
-      margin-bottom:8px;
       letter-spacing:-1px;
-      text-align:left;
+      margin-bottom:8px;
     }
 
     .checker-sub{
       color:var(--muted);
-      margin-bottom:22px;
       line-height:1.7;
-      text-align:left;
       max-width:760px;
     }
 
@@ -237,11 +219,16 @@
     }
 
     .card{
-      background:rgba(255,255,255,.04);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:22px;
-      padding:18px;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:16px;
       min-width:0;
+      transition:.18s ease;
+    }
+
+    .card:hover{
+      background:var(--card-hover);
     }
 
     .card.full{
@@ -251,120 +238,16 @@
     label{
       display:block;
       margin-bottom:8px;
+      color:var(--text);
       font-size:14px;
       font-weight:800;
-      color:#e5e7eb;
-      text-align:left;
-    }
-
-    input{
-      width:100%;
-      padding:15px 16px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.07);
-      color:white;
-      font-size:15px;
-      outline:none;
-      text-align:left;
-    }
-
-    input:focus{
-      border-color:rgba(124,58,237,.85);
-      box-shadow:0 0 0 4px rgba(124,58,237,.16);
     }
 
     .muted{
       color:var(--muted);
-      font-size:13px;
+      font-size:12.5px;
       margin-top:10px;
-      text-align:left;
-    }
-
-    .check-btn{
-      width:100%;
-      padding:16px 18px;
-      border:none;
-      border-radius:18px;
-      background:linear-gradient(135deg,var(--green),var(--green2));
-      color:white;
-      font-size:16px;
-      font-weight:900;
-      cursor:pointer;
-      transition:.2s ease;
-      box-shadow:0 16px 30px rgba(34,197,94,.22);
-    }
-
-    .check-btn:hover{
-      transform:translateY(-2px);
-      filter:brightness(1.03);
-    }
-
-    .result-box{
-      margin-top:18px;
-      padding:20px;
-      border-radius:22px;
-      background:rgba(255,255,255,.05);
-      border:1px solid rgba(255,255,255,.08);
-      min-height:180px;
-    }
-
-    .result-status{
-      display:inline-flex;
-      align-items:center;
-      padding:10px 14px;
-      border-radius:999px;
-      font-size:14px;
-      font-weight:800;
-      margin-bottom:14px;
-    }
-
-    .status-success{
-      background:rgba(34,197,94,.12);
-      color:#86efac;
-      border:1px solid rgba(34,197,94,.24);
-    }
-
-    .status-warning{
-      background:rgba(245,158,11,.12);
-      color:#fcd34d;
-      border:1px solid rgba(245,158,11,.24);
-    }
-
-    .status-danger{
-      background:rgba(239,68,68,.12);
-      color:#fca5a5;
-      border:1px solid rgba(239,68,68,.24);
-    }
-
-    .result-title{
-      font-size:24px;
-      font-weight:900;
-      margin-bottom:8px;
-      text-align:left;
-    }
-
-    .result-text{
-      color:#dbeafe;
-      line-height:1.7;
-      margin-bottom:14px;
-      text-align:left;
-    }
-
-    .tips{
-      display:grid;
-      gap:10px;
-    }
-
-    .tip{
-      background:rgba(255,255,255,.05);
-      padding:12px 14px;
-      border-radius:14px;
-      border:1px solid rgba(255,255,255,.06);
-      color:#e5e7eb;
-      font-size:14px;
-      line-height:1.6;
-      text-align:left;
+      line-height:1.5;
     }
 
     .custom-select{
@@ -375,38 +258,37 @@
     .select-trigger{
       width:100%;
       min-height:54px;
-      padding:15px 16px;
-      border-radius:16px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(255,255,255,.07);
-      color:white;
+      padding:14px 15px;
+      background:#1e1f22;
+      border:1px solid var(--line);
+      border-radius:14px;
       display:flex;
       align-items:center;
       justify-content:space-between;
       gap:12px;
       cursor:pointer;
-      transition:.2s ease;
+      transition:.18s ease;
     }
 
     .select-trigger:hover,
     .custom-select.open .select-trigger{
-      border-color:rgba(124,58,237,.85);
-      box-shadow:0 0 0 4px rgba(124,58,237,.14);
+      border-color:var(--primary);
+      box-shadow:0 0 0 3px rgba(88,101,242,.16);
     }
 
     .select-value{
-      font-size:15px;
+      font-size:14px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
-      min-width:0;
+      color:var(--text);
     }
 
     .select-arrow{
-      font-size:14px;
-      opacity:.8;
+      font-size:13px;
+      color:var(--muted);
+      transition:.18s ease;
       flex-shrink:0;
-      transition:.2s ease;
     }
 
     .custom-select.open .select-arrow{
@@ -418,16 +300,15 @@
       top:calc(100% + 8px);
       left:0;
       right:0;
-      background:rgba(17,24,39,.98);
-      border:1px solid rgba(255,255,255,.08);
-      border-radius:18px;
-      box-shadow:0 20px 50px rgba(0,0,0,.45);
+      background:#1a1b1e;
+      border:1px solid var(--line);
+      border-radius:16px;
+      box-shadow:var(--shadow);
       padding:8px;
       display:none;
-      z-index:100;
-      max-height:260px;
+      z-index:30;
+      max-height:250px;
       overflow-y:auto;
-      backdrop-filter:blur(18px);
     }
 
     .custom-select.open .select-menu{
@@ -438,37 +319,118 @@
       width:10px;
     }
 
-    .select-menu::-webkit-scrollbar-track{
-      background:transparent;
-    }
-
     .select-menu::-webkit-scrollbar-thumb{
-      background:rgba(255,255,255,.14);
+      background:#3b3e45;
       border-radius:999px;
     }
 
     .select-option{
-      padding:12px 14px;
+      padding:12px 13px;
       border-radius:12px;
       cursor:pointer;
-      transition:.18s ease;
+      transition:.16s ease;
       font-size:14px;
-      line-height:1.45;
-      text-align:left;
+      color:var(--text);
+      line-height:1.4;
       word-break:break-word;
     }
 
     .select-option:hover{
-      background:rgba(124,58,237,.14);
+      background:#2b2d31;
     }
 
     .select-option.active{
-      background:linear-gradient(135deg,rgba(124,58,237,.24),rgba(79,70,229,.18));
-      border:1px solid rgba(124,58,237,.22);
+      background:rgba(88,101,242,.16);
+      border:1px solid rgba(88,101,242,.25);
     }
 
-    @media (max-width: 900px){
-      .hero{
+    .check-btn{
+      width:100%;
+      min-height:54px;
+      border:none;
+      border-radius:16px;
+      background:var(--primary);
+      color:white;
+      font-size:15px;
+      font-weight:900;
+      cursor:pointer;
+      transition:.18s ease;
+      box-shadow:0 10px 24px rgba(88,101,242,.25);
+    }
+
+    .check-btn:hover{
+      background:var(--primary-hover);
+      transform:translateY(-1px);
+    }
+
+    .result-box{
+      margin-top:18px;
+      background:#202225;
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px;
+      min-height:180px;
+    }
+
+    .result-status{
+      display:inline-flex;
+      align-items:center;
+      padding:10px 14px;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:900;
+      margin-bottom:14px;
+      border:1px solid transparent;
+    }
+
+    .status-success{
+      background:rgba(35,165,89,.16);
+      color:#6ee7a8;
+      border-color:rgba(35,165,89,.26);
+    }
+
+    .status-warning{
+      background:rgba(240,178,50,.14);
+      color:#ffd37a;
+      border-color:rgba(240,178,50,.24);
+    }
+
+    .status-danger{
+      background:rgba(218,55,60,.14);
+      color:#ff8e92;
+      border-color:rgba(218,55,60,.24);
+    }
+
+    .result-title{
+      font-size:24px;
+      font-weight:900;
+      margin-bottom:8px;
+      letter-spacing:-0.4px;
+    }
+
+    .result-text{
+      color:#d7d9dd;
+      line-height:1.75;
+      margin-bottom:14px;
+    }
+
+    .tips{
+      display:grid;
+      gap:10px;
+    }
+
+    .tip{
+      background:#2b2d31;
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 14px;
+      color:#e5e7eb;
+      font-size:14px;
+      line-height:1.6;
+    }
+
+    @media (max-width: 920px){
+      .layout{
         grid-template-columns:1fr;
       }
 
@@ -477,7 +439,7 @@
       }
 
       .hero-title{
-        font-size:38px;
+        font-size:40px;
       }
     }
 
@@ -487,7 +449,8 @@
       }
 
       .wrap{
-        padding:18px;
+        padding:16px;
+        border-radius:24px;
       }
 
       .topbar{
@@ -496,16 +459,17 @@
       }
 
       .lang-switch{
-        margin-left:0;
         align-self:flex-end;
+      }
+
+      .hero,
+      .side,
+      .checker{
+        padding:18px;
       }
 
       .checker-title{
         font-size:28px;
-      }
-
-      .select-menu{
-        max-height:220px;
       }
     }
   </style>
@@ -516,17 +480,21 @@
     <div class="orb two"></div>
   </div>
 
-  <div class="wrap">
+  <div class="shell">
     <div class="topbar">
-      <div class="brand">Run My Game</div>
+      <div class="brand">
+        <div class="brand-badge">R</div>
+        <div>Run My Game</div>
+      </div>
+
       <div class="lang-switch">
         <button id="langEn" class="active" onclick="setLang('en')">English</button>
         <button id="langAr" onclick="setLang('ar')">العربية</button>
       </div>
     </div>
 
-    <div class="hero">
-      <div class="hero-left">
+    <div class="layout">
+      <div class="panel hero">
         <div class="pill" id="heroBadge">Instant PC Game Checker</div>
         <div class="hero-title" id="heroTitle">Check if your PC can run this game.</div>
         <div class="hero-text" id="heroText">
@@ -534,7 +502,7 @@
         </div>
       </div>
 
-      <div class="hero-right">
+      <div class="panel side">
         <h3 id="heroRightTitle">What this checker gives you</h3>
         <p id="heroRightText">A cleaner result with better part-based checking.</p>
         <div class="mini-list">
@@ -545,32 +513,36 @@
       </div>
     </div>
 
-    <div class="checker">
-      <div class="checker-title" id="checkerTitle">Can Your PC Run This Game?</div>
-      <div class="checker-sub" id="checkerSub">Choose the game and your actual PC parts to get a better estimate.</div>
+    <div class="panel checker">
+      <div class="checker-head">
+        <div>
+          <div class="checker-title" id="checkerTitle">Can Your PC Run This Game?</div>
+          <div class="checker-sub" id="checkerSub">Choose the game and your actual PC parts to get a better estimate.</div>
+        </div>
+      </div>
 
       <div class="grid">
         <div class="card full">
           <label id="gameLabel">Game</label>
-          <div class="custom-select" id="gameSelect"></div>
+          <div id="gameSelect"></div>
         </div>
 
         <div class="card">
           <label id="cpuLabel">CPU</label>
-          <div class="custom-select" id="cpuSelect"></div>
+          <div id="cpuSelect"></div>
           <div class="muted" id="cpuHint">Sorted from strongest to weakest.</div>
         </div>
 
         <div class="card">
           <label id="gpuLabel">GPU</label>
-          <div class="custom-select" id="gpuSelect"></div>
+          <div id="gpuSelect"></div>
           <div class="muted" id="gpuHint">Sorted from strongest to weakest.</div>
         </div>
 
-       <div class="card full">
-  <label id="ramLabel">RAM (GB)</label>
-  <div class="custom-select" id="ramSelect"></div>
-</div>
+        <div class="card full">
+          <label id="ramLabel">RAM (GB)</label>
+          <div id="ramSelect"></div>
+        </div>
 
         <div class="card full">
           <button class="check-btn" id="checkBtn" onclick="checkGame()">Check Compatibility</button>
@@ -590,12 +562,12 @@
 
   <script>
     let lang = "en";
-let selectedGame = "fortnite";
-let selectedCpu = "Intel Core i5-10600K";
-let selectedGpu = "RTX 3060";
-let selectedRam = "16";
+    let selectedGame = "fortnite";
+    let selectedCpu = "Intel Core i5-10600K";
+    let selectedGpu = "RTX 3060";
+    let selectedRam = "16";
 
-const ramOptions = ["4", "8", "16", "32", "64", "128"];
+    const ramOptions = ["4", "8", "16", "32", "64", "128"];
 
     const cpus = [
       "Intel Core i9-14900KS",
@@ -891,43 +863,43 @@ const ramOptions = ["4", "8", "16", "32", "64", "128"];
     }
 
     function refreshSelects() {
-  createCustomSelect(
-    "gameSelect",
-    gameListForLang().map(g => g.label),
-    games[selectedGame][lang],
-    (label) => {
-      const found = Object.keys(games).find(key => games[key][lang] === label);
-      selectedGame = found || "fortnite";
-    }
-  );
+      createCustomSelect(
+        "gameSelect",
+        gameListForLang().map(g => g.label),
+        games[selectedGame][lang],
+        (label) => {
+          const found = Object.keys(games).find(key => games[key][lang] === label);
+          selectedGame = found || "fortnite";
+        }
+      );
 
-  createCustomSelect(
-    "cpuSelect",
-    cpus,
-    selectedCpu,
-    (value) => {
-      selectedCpu = value;
-    }
-  );
+      createCustomSelect(
+        "cpuSelect",
+        cpus,
+        selectedCpu,
+        (value) => {
+          selectedCpu = value;
+        }
+      );
 
-  createCustomSelect(
-    "gpuSelect",
-    gpus,
-    selectedGpu,
-    (value) => {
-      selectedGpu = value;
-    }
-  );
+      createCustomSelect(
+        "gpuSelect",
+        gpus,
+        selectedGpu,
+        (value) => {
+          selectedGpu = value;
+        }
+      );
 
-  createCustomSelect(
-    "ramSelect",
-    ramOptions,
-    selectedRam,
-    (value) => {
-      selectedRam = value;
+      createCustomSelect(
+        "ramSelect",
+        ramOptions,
+        selectedRam,
+        (value) => {
+          selectedRam = value;
+        }
+      );
     }
-  );
-}
 
     function setLang(selected) {
       lang = selected;
@@ -972,7 +944,7 @@ const ramOptions = ["4", "8", "16", "32", "64", "128"];
 
     function checkGame() {
       const t = translations[lang];
-     const ram = Number(selectedRam);
+      const ram = Number(selectedRam);
       const req = games[selectedGame];
 
       const cpuOk = getRank(cpus, selectedCpu) <= getRank(cpus, req.cpuMin);
@@ -1034,4 +1006,4 @@ const ramOptions = ["4", "8", "16", "32", "64", "128"];
     setLang("en");
   </script>
 </body>
-</html>  
+</html>  هيك الكود كامل بتقر تخلي كل اشي كي ما هو بس تغير تصميم الموقع
